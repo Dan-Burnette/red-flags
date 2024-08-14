@@ -1,0 +1,9 @@
+/* Red flag icon created by Alfredo Hernandez - Flaticon
+ * https://www.flaticon.com/free-icons/red-flag
+ * Thank you!
+ */
+
+.red-flag-extension::after {
+  content: url('chrome-extension://__MSG_@@extension_id__/red-flag.png');
+  display: inline-block;
+}

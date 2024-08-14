@@ -10,6 +10,13 @@
   "content_scripts": [
     {
       "js": ["red-flags.js"],
+      "css": ["red-flags.css"],
+      "matches": [ "<all_urls>" ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "red-flag.png" ],
       "matches": [ "<all_urls>" ]
     }
   ]
