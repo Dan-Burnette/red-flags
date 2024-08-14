@@ -18,20 +18,26 @@ const detectedYellowFlags = yellowFlags.filter(flag => text.includes(flag))
 console.log("detectedRedFlags", detectedRedFlags);
 console.log("detectedYellowFlags", detectedYellowFlags);
 
-// TODO: locate the element, append a red/yellow flag icon.
-// 1) Select INNERMOST? element containing the word.
 const pageElements = [ ...body.querySelectorAll("*") ];
 
 detectedRedFlags.forEach(flag => {
+
+  // 1) Select element containing the word.
   const elementsDirectlyContainingFlag = pageElements.filter(e => {
     const containsFlag = e.textContent.includes(flag);
     const childContainsFlag = [...e.children].some(child => child.textContent.includes(flag));
-    const directlyContainsFlag = containsFlag && ! childContainsFlag;
+    const directlyContainsFlag = containsFlag && !childContainsFlag;
     return directlyContainsFlag;
   })
+
+  // 2) Replace content with the same stuff but added HTML
+  // content...<p> class="red-flag">some red flag</p>...content
+  elementsDirectlyContainingFlag.forEach(e => {
+    const newInnerHTML = e.innerHTML.replace(flag, `<span class='red-flag'>${flag}</span>`)
+    e.innerHTML = newInnerHTML;
+  });
+
+
 });
 
-// 2) Replace content with the same stuff but added HTML
-// content...<p> class="red-flag">some red flag</p>...content
-//
 // 3) Add a red flag popup on top of 'red-flag' class elements
