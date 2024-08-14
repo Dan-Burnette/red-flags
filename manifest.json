@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Red Flags",
+  "description": "Highlight toxic language in job postings",
+  "version": "1.0",
+  "action": {
+    "default_popup": "red-flags.html",
+    "default_icon": "hello_icon.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["red-flags.js"],
+      "matches": [ "<all_urls>" ]
+    }
+  ]
+}
