@@ -13,34 +13,36 @@ const redFlags = [
 //  inserted into the DOM. 
 //  - Use MutationObserver to run on DOM insertions.
 //  - Run the function on the insertions, scanning for red flags
-// 
 // TODO: Make it case insensitive
-// TODO: specs
-window.addEventListener("load", (event) => {
-  const body = document.querySelector("body");
+
+function detectRedFlags(body) {
   const text = body.textContent;
-  const detectedRedFlags = redFlags.filter(flag => text.includes(flag))
-  const pageElements = [ ...body.querySelectorAll("*") ];
+  return redFlags.filter(flag => text.includes(flag))
+}
 
-  detectedRedFlags.forEach(flag => {
-    const elementsDirectlyContainingFlag = pageElements.filter(e => {
-      const containsFlag = e.textContent.includes(flag);
-      const childContainsFlag = [...e.children].some(child => child.textContent.includes(flag));
+// window.addEventListener("load", (event) => {
+//   const detectedRedFlags = detectedRedFlags(document);
+//   const pageElements = [ ...body.querySelectorAll("*") ];
+//
+//   detectedRedFlags.forEach(flag => {
+//     const elementsDirectlyContainingFlag = pageElements.filter(e => {
+//       const containsFlag = e.textContent.includes(flag);
+//       const childContainsFlag = [...e.children].some(child => child.textContent.includes(flag));
+//
+//       if (containsFlag) {
+//         console.log("e contains flag:", e);
+//       }
+//       const directlyContainsFlag = containsFlag && !childContainsFlag;
+//       return directlyContainsFlag;
+//     })
+//
+//     console.log("elementsDirectlyContainingFlag", elementsDirectlyContainingFlag);
+//     elementsDirectlyContainingFlag.forEach(e => {
+//       const newInnerHTML = e.innerHTML.replace(flag, `<span class='red-flag-extension'>${flag}</span>`)
+//       e.innerHTML = newInnerHTML;
+//     });
+//   });
+// });
 
-      if (containsFlag) {
-        console.log("e contains flag:", e);
-      }
-      const directlyContainsFlag = containsFlag && !childContainsFlag;
-      return directlyContainsFlag;
-    })
-
-    console.log("elementsDirectlyContainingFlag", elementsDirectlyContainingFlag);
-    elementsDirectlyContainingFlag.forEach(e => {
-      const newInnerHTML = e.innerHTML.replace(flag, `<span class='red-flag-extension'>${flag}</span>`)
-      e.innerHTML = newInnerHTML;
-    });
-  });
-});
-
-console.log("page elements", pageElements);
+exports.detect = detectRedFlags;
 
