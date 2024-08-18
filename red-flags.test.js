@@ -7,24 +7,29 @@ describe('detect', () => {
 
     const results = redFlags.detect(document.body);
 
-    expect(results).toContain("hustle", "relentless", "urgency");
+    const expected = ["hustle", "relentless", "urgency"];
+    expected.forEach(r => expect(results).toContain(r));
   });
 
-  xtest('works case insensitively', () => {
+  test('does not return duplicates', () => {
     document.body.innerHTML =
-      "<html><p>We hustle... with a sense of ReLeNtLeSs UrGeNcY! Scrappy!</p></html>";
+      "<p>We're fast-paced, scrappy, fast-paced and scrappy!</p>";
 
-    const results = detectRedFlags(document);
+    const results = redFlags.detect(document.body);
 
-    expect(results).toBe(["hustle", "relentless", "urgency", "scrappy"]);
+    const expected = ["fast-paced", "scrappy"];
+    expect(results).toHaveLength(expected.length);
+    expected.forEach(r => expect(results).toContain(r));
   });
 
-  xtest('does not return duplicate red flags', () => {
+  test('works case insensitively', () => {
     document.body.innerHTML =
-      "<html><p>We're fast-paced, scrappy, fast-paced and scrappy!</p></html>";
-    const results = detectRedFlags(document);
+      "<p>We hustle... with a sense of ReLeNtLeSs UrGeNcY! Scrappy!</p>";
 
-    expect(results).toBe(["fast-paced", "scrappy"])
+    const results = redFlags.detect(document.body);
+
+    const expected = ["hustle", "relentless", "urgency", "scrappy"];
+    expected.forEach(r => expect(results).toContain(r));
   });
 });
 

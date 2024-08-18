@@ -1,9 +1,6 @@
 const config = {
   verbose: true,
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: [
-    './red-flags.js'
-  ]
+  testEnvironment: 'jsdom'
 };
 
 module.exports = config;

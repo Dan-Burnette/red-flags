@@ -16,8 +16,8 @@ const redFlags = [
 // TODO: Make it case insensitive
 
 function detectRedFlags(body) {
-  const text = body.textContent;
-  return redFlags.filter(flag => text.includes(flag))
+  const lowerCasedBodyText = body.textContent.toLowerCase();
+  return redFlags.filter(flag => lowerCasedBodyText.includes(flag))
 }
 
 // window.addEventListener("load", (event) => {
