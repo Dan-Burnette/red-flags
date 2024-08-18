@@ -1,6 +1,6 @@
 const redFlags = require('./red-flags.js');
 
-describe('detect', () => {
+describe('detectRedFlags', () => {
   test('returns red flags present in the document', () => {
     document.body.innerHTML =
       "<p>We hustle... with a sense of relentless urgency!</p>";

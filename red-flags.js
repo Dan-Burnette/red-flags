@@ -8,7 +8,7 @@ const redFlags = [
   "fast paced"
 ]
 
-function detectRedFlags(body) {
+const detectRedFlags = (body) => {
   const lowerCasedBodyText = body.textContent.toLowerCase();
   return redFlags.filter(flag => lowerCasedBodyText.includes(flag))
 }
@@ -17,51 +17,41 @@ const commonTextContainingElementsTypes = [
 "p", "span", "div", "li", "a", "h1", "h2", "h3", "h4", "h5", "h6", "article", "aside", "footer", "header", "hgroup", "main", "section"
 ]
 
-function getElementsNeedingFlagInsertion(body, flag) {
-  const pageElements = [
+const elementsNeedingFlagInsertion = (body, flag) => {
+  const pageTextElements = [
     ...body.querySelectorAll(commonTextContainingElementsTypes.toString())
   ];
 
-  return pageElements.filter(e => {
-    console.log("e.className", e.className);
-
+  return pageTextElements.filter(e => {
     const visible = e.checkVisibility();
     const alreadyInserted = e.className.includes("red-flag-extension");
     const containsFlag = e.textContent.includes(flag);
     const childContainsFlag = [...e.children].some(child => child.textContent.includes(flag));
 
     const needsFlagInsertion =
-      visible && !alreadyInserted && containsFlag && !childContainsFlag && !alreadyInserted;
+      visible && !alreadyInserted && containsFlag && !childContainsFlag;
 
     return needsFlagInsertion;
   })
 }
 
-function insertRedFlagStyle(body, detectedRedFlags) {
-  detectedRedFlags.forEach(flag => {
-    const elementsDirectlyContainingFlag =
-      getElementsNeedingFlagInsertion(body, flag)
+const insertRedFlag = (element, flag) => {
+  const newInnerHTML =
+    element.innerHTML.replace(flag, `<span class='red-flag-extension'>${flag}</span>`)
+  element.innerHTML = newInnerHTML;
+}
 
-    console.log("elementsDirectlyContainingFlag", elementsDirectlyContainingFlag);
-    elementsDirectlyContainingFlag.forEach(e => {
-      const newInnerHTML = e.innerHTML.replace(flag, `<span class='red-flag-extension'>${flag}</span>`)
-      e.innerHTML = newInnerHTML;
-    });
+const execute = () => {
+  const body = document.body;
+  const detectedRedFlags = detectRedFlags(body);
+  detectedRedFlags.forEach(flag => {
+    const elements = elementsNeedingFlagInsertion(body, flag);
+    elements.forEach(e => insertRedFlag(e, flag));
   });
 }
 
-function doIt() {
-  const body = document.body;
-  const detectedRedFlags = detectRedFlags(body);
-  insertRedFlagStyle(body, detectedRedFlags);
-}
-
-window.addEventListener("load", (event) => {
-  doIt();
-});
-
-// Run periodically in case content gets added to the page
-window.setInterval(doIt, 5000);
+window.addEventListener("load", execute)
+window.setInterval(execute, 2000);
 
 // When running specs, export via commonJS module so the spec can import.
 // When running in context of chrome extension, do nothing
