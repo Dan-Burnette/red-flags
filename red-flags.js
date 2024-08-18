@@ -23,15 +23,14 @@ const elementsNeedingFlagInsertion = (body, flag) => {
   ];
 
   return pageTextElements.filter(e => {
-    const visible = e.checkVisibility();
     const alreadyInserted = e.className.includes("red-flag-extension");
+    if (alreadyInserted) return false;
+
     const containsFlag = e.textContent.includes(flag);
-    const childContainsFlag = [...e.children].some(child => child.textContent.includes(flag));
+    const childContainsFlag =
+      [...e.children].some(child => child.textContent.includes(flag));
 
-    const needsFlagInsertion =
-      visible && !alreadyInserted && containsFlag && !childContainsFlag;
-
-    return needsFlagInsertion;
+    return containsFlag && !childContainsFlag;
   })
 }
 
@@ -58,6 +57,11 @@ window.setInterval(execute, 2000);
 // Try/catch because `process` is not defined in chrome extension context.
 try {
   const testingWithJest = process.env.JEST_WORKER_ID !== undefined;
-  if (testingWithJest) exports.detectRedFlags = detectRedFlags;
+  if (testingWithJest) {
+    exports.detectRedFlags = detectRedFlags
+    exports.elementsNeedingFlagInsertion = elementsNeedingFlagInsertion; 
+    exports.insertRedFlag = insertRedFlag;
+    exports.execute = execute;
+  }
 } catch {
 }

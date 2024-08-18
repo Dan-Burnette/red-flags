@@ -33,16 +33,34 @@ describe('detectRedFlags', () => {
   });
 });
 
+describe('elementsNeedingFlagInsertion', () => {
+  xtest('does NOT return elements that already have the flag style', () => {
+    // TODO
+  });
+  xtest('returns elements directly containing the flag', () => {
+    // TODO
+  });
+
+  xtest('does NOT return elements containing the flag through their child nodes', () => {
+    // TODO
+  });
+})
+
 describe('insertFlag', () => {
-  xtest('TODO', () => {
-
+  xtest("wraps the given flag text in a <span> with class of 'red-flag-extension'", () => {
+    // TODO
   });
+})
 
-  xtest('does not insert on invisible elements (i.e. <script> tags, etc)', () => {
+describe('execute', () => {
+  test("it detects red flags and inserts the style", () => {
+    document.body.innerHTML =
+      "<p>We hustle... with a sense of relentless urgency!</p>";
 
-  });
+    redFlags.execute();
 
-  xtest('does not insert on elements that already have the flag added already', () => {
-
+    expect(document.body.innerHTML).toBe(
+      "<p>We <span class='red-flag-extension'>hustle</span>... with a sense of <span class='red-flag-extension'>relentless</span> <span class='red-flag-extension'>urgency</span>!</p>"
+    );
   });
 })
