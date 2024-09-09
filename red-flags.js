@@ -41,7 +41,7 @@ const insertRedFlag = (element, flag) => {
   element.innerHTML = newInnerHTML;
 }
 
-const execute = () => {
+const execute = () => { 
   const body = document.body;
   const detectedRedFlags = detectRedFlags(body);
   detectedRedFlags.forEach(flag => {
@@ -50,8 +50,14 @@ const execute = () => {
   });
 }
 
-window.addEventListener("load", execute)
-window.setInterval(execute, 2000);
+window.addEventListener('load', () => {
+  chrome.storage.sync.get(['isEnabled'], (result) => {
+    if (result.isEnabled) {
+      window.addEventListener("load", execute)
+      window.setInterval(execute, 2000);
+    }
+  });
+})
 
 // When running specs, export via commonJS module so the spec can import.
 // When running in context of chrome extension, do nothing

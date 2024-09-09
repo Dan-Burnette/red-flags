@@ -12,6 +12,7 @@
     "default_popup": "red-flags.html",
     "default_icon": "red-flag.png"
   },
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "js": ["red-flags.js"],
