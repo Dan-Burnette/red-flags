@@ -60,7 +60,7 @@ describe('execute', () => {
     redFlags.execute();
 
     expect(document.body.innerHTML).toBe(
-      "<p>We <span class='red-flag-extension'>hustle</span>... with a sense of <span class='red-flag-extension'>relentless</span> <span class='red-flag-extension'>urgency</span>!</p>"
+      "<p>We <span class=\"red-flag-extension\">hustle</span>... with a sense of <span class=\"red-flag-extension\">relentless</span> <span class=\"red-flag-extension\">urgency</span>!</p>"
     );
   });
 })
