@@ -34,15 +34,38 @@ describe('detectRedFlags', () => {
 });
 
 describe('elementsNeedingFlagInsertion', () => {
-  xtest('does NOT return elements that already have the flag style', () => {
-    // TODO
-  });
-  xtest('returns elements directly containing the flag', () => {
-    // TODO
+  test('does NOT return elements that already have the flag style', () => {
+    document.body.innerHTML =
+      "<p>We <span class=\"red-flag-extension\">hustle</span>...</p>"
+
+    const results =
+      redFlags.elementsNeedingFlagInsertion(document.body, "hustle");
+
+    expect(results.length).toBe(0);
+
   });
 
-  xtest('does NOT return elements containing the flag through their child nodes', () => {
-    // TODO
+  test('returns elements directly containing the flag', () => {
+    document.body.innerHTML = "<p>We hustle...</p>";
+
+    const results =
+      redFlags.elementsNeedingFlagInsertion(document.body, "hustle");
+
+    expect(results.length).toBe(1);
+    expect(results[0]).toBeInstanceOf(HTMLParagraphElement);
+    expect(results[0].textContent).toEqual("We hustle...")
+  });
+
+  test('does NOT return elements containing the flag through their child nodes', () => {
+    document.body.innerHTML = "<div><p>We hustle...</p></div>";
+
+    const results =
+      redFlags.elementsNeedingFlagInsertion(document.body, "hustle");
+
+    expect(results.length).toBe(1);
+    expect(results[0]).not.toBeInstanceOf(HTMLDivElement)
+    expect(results[0]).toBeInstanceOf(HTMLParagraphElement);
+    expect(results[0].textContent).toEqual("We hustle...")
   });
 })
 
