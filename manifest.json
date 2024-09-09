@@ -2,7 +2,12 @@
   "manifest_version": 3,
   "name": "Red Flags",
   "description": "Highlight toxic language in job postings",
-  "version": "1.0",
+  "version": "0.0.0.1",
+  "icons": {
+    "16": "red-flag_16px.png",
+    "32": "red-flag_32px.png",
+    "128": "red-flag_128px.png"
+  },
   "action": {
     "default_popup": "red-flags.html",
     "default_icon": "red-flag.png"

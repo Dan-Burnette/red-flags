@@ -1,6 +1,7 @@
 const redFlags = [
   "hustle",
   "work hard play hard",
+  "work hard play harder",
   "urgency",
   "relentless",
   "scrappy",
