@@ -5,7 +5,7 @@
   "version": "1.0",
   "action": {
     "default_popup": "red-flags.html",
-    "default_icon": "hello_icon.png"
+    "default_icon": "red-flag.png"
   },
   "content_scripts": [
     {
