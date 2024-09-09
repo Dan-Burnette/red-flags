@@ -12,5 +12,4 @@ This is a chrome extension that inserts a literal red flag next to phrases commo
 
 PRs welcome for additional phrases!
 
-Example:
 ![promo_p4](https://github.com/user-attachments/assets/e84a765d-800a-4a64-8ae3-531388aeebaf)
