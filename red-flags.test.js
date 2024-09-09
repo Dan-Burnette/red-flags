@@ -69,9 +69,15 @@ describe('elementsNeedingFlagInsertion', () => {
   });
 })
 
-describe('insertFlag', () => {
-  xtest("wraps the given flag text in a <span> with class of 'red-flag-extension'", () => {
-    // TODO
+describe('insertRedFlag', () => {
+  test("wraps the given flag text in a <span> with class of 'red-flag-extension'", () => {
+    document.body.innerHTML = "<p>We hustle...</p>";
+
+    redFlags.insertRedFlag(document.body, "hustle");
+
+    expect(document.body.innerHTML).toBe(
+      "<p>We <span class=\"red-flag-extension\">hustle</span>...</p>"
+    );
   });
 })
 
